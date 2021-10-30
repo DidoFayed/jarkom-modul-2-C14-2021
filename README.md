@@ -211,66 +211,66 @@ service bind9 restart
 Buat subdomain super.franky.c14.com dengan alias www.super.franky.c14.com yang diatur DNS nya di EniesLobby dan mengarah ke Skypie
 ### Cara Pengerjaan 
 
-## Soal 4
-Membuat reverse domain untuk domain utama.
-### Cara Pengerjaan
-#### Reverse DNS (Record PTR)
-Digunakan untuk menerjemahkan IP ke alamat domain yang sudah diterjemahkan sebelumnya.
-- Edit file `/etc/bind/named.conf.local` pada Skypie.
+## Soal 4 
+Membuat reverse domain untuk domain utama. 
+### Cara Pengerjaan 
+#### Reverse DNS (Record PTR) 
+Digunakan untuk menerjemahkan IP ke alamat domain yang sudah diterjemahkan sebelumnya. 
+- Edit file `/etc/bind/named.conf.local` pada Skypie. 
+``` 
+nano /etc/bind/named.conf.local 
+``` 
+- Tambahkan konfigurasi berikut ke dalam file `/etc/bind/named.conf.local`. Tambahkan reverse tiga byte awal dari IP yang ingin dilakukan reverse. Karena digunakan IP `10.21.2` untuk IP dari records, maka reverse-nya adalah `2.21.10` 
+``` 
+zone "2.21.10.in-addr.arpa" { 
+    type master; 
+    file "/etc/bind/kaizoku/2.21.10.in-addr.arpa"; 
+}; 
+``` 
+![ssmodul2](https://github.com/DidoFayed/jarkom-modul-2-C14-2021/blob/main/ssmodul2/3_1_AddReverse.png) 
+ 
+- Copy file **db.local** ppada path `/etc/bind` ke dalam folder kaizoku yang baru saja dibuat dan ubah namanya menjadi **2.21.10.in-addr.arpa** 
+``` 
+cp /etc/bind/db.local /etc/bind/kaizoku/2.21.10.in-addr.arpa 
 ```
-nano /etc/bind/named.conf.local
-```
-- Tambahkan konfigurasi berikut ke dalam file `/etc/bind/named.conf.local`. Tambahkan reverse tiga byte awal dari IP yang ingin dilakukan reverse. Karena digunakan IP `10.21.2` untuk IP dari records, maka reverse-nya adalah `2.21.10`
-```
-zone "2.21.10.in-addr.arpa" {
-    type master;
-    file "/etc/bind/kaizoku/2.21.10.in-addr.arpa";
-};
-```
-![ssmodul2](https://github.com/DidoFayed/jarkom-modul-2-C14-2021/blob/main/ssmodul2/3_1_AddReverse.png)
-
-- Copy file **db.local** ppada path `/etc/bind` ke dalam folder kaizoku yang baru saja dibuat dan ubah namanya menjadi **2.21.10.in-addr.arpa**
-```
-cp /etc/bind/db.local /etc/bind/kaizoku/2.21.10.in-addr.arpa
-```
-- Edit file, masukkan command `nano /etc/bind/kaizoku/2.21.10.in-addr.arpa` dan ubah sehingga menjadi sebagai berikut.
-```
-;
+- Edit file, masukkan command `nano /etc/bind/kaizoku/2.21.10.in-addr.arpa` dan ubah sehingga menjadi sebagai berikut. 
+``` 
+; 
 ; BIND data file for local loopback interface
-;
-$TTL    604800
+; 
+$TTL    604800 
 @       IN      SOA     franky.c14.com. root.franky.c14.com. (
-                        2021102801      ; Serial
-                         604800         ; Refresh
-                          86400         ; Retry
-                        2419200         ; Expire
-                         604800 )       ; Negative Cache TTL
-;
-2.21.10.in-addr.arpa    IN      NS      franky.c14.com.
-4                       IN      PTR     franky.c14.com. ; BYTE KE-4 IP Skypie
+                        2021102801      ; Serial 
+                         604800         ; Refresh 
+                          86400         ; Retry 
+                        2419200         ; Expire 
+                         604800 )       ; Negative Cache TTL 
+; 
+2.21.10.in-addr.arpa    IN      NS      franky.c14.com. 
+4                       IN      PTR     franky.c14.com. ; BYTE KE-4 IP Skypie 
 ```
 
-- Kemudian restart bind9 dengan command
-```.  
-service bind9 restart
-```
+- Kemudian restart bind9 dengan command 
+```.   
+service bind9 restart 
+``` 
 
-- Untuk mengecek konfigurasi, lakukan command berikut pada client Loguetown.
-```
-// Ubah dulu nameserver di /etc/resolv.conf menjadi sama dengan nameserver dari Foosha agar dapat tersambung ke internet
-apt-get update
-apt-get install dnsutils
+- Untuk mengecek konfigurasi, lakukan command berikut pada client Loguetown. 
+``` 
+// Ubah dulu nameserver di /etc/resolv.conf menjadi sama dengan nameserver dari Foosha agar dapat tersambung ke internet 
+apt-get update 
+apt-get install dnsutils 
 
-// Ubah kembali nameserver agar tersambung dengan Skypie
-host -t PTR 10.21.2.4
-```
-Screenshot:
-![ssmodul2](https://github.com/DidoFayed/jarkom-modul-2-C14-2021/blob/main/ssmodul2/3_2_HostPTR.png)
+// Ubah kembali nameserver agar tersambung dengan Skypie 
+host -t PTR 10.21.2.4 
+``` 
+Screenshot: 
+![ssmodul2](https://github.com/DidoFayed/jarkom-modul-2-C14-2021/blob/main/ssmodul2/3_2_HostPTR.png) 
+ 
 
-
-## Kendala yang Dialami Selama Pengerjaan
-Kendala yang Dialami Selama Pengerjaan
-1. Beberapa teman yang menggunakan sistem operasi selain Linux mengalami kesulitan dalam mengerjakan, terdapat error ketika menjalankan GNS3, dan lain-lain.
-2. Ketika mengerjakan pada saat praktikum, sempat melakukan konfigurasi pada folder dan Web Server yang tidak sesuai, salah menempatkan pada folder **jarkom**, yang seharusnya **kaizoku**. Sehingga butuh untuk membuat ulang folder dan mengkonfigurasi script-script dari awal.
-3. Gagal import file ekspor gns3 di device yang lain dan mengulang konfigurasi script dari awal.
+## Kendala yang Dialami Selama Pengerjaan 
+Kendala yang Dialami Selama Pengerjaan 
+1. Beberapa teman yang menggunakan sistem operasi selain Linux mengalami kesulitan dalam mengerjakan, terdapat error ketika menjalankan GNS3, dan lain-lain. 
+2. Ketika mengerjakan pada saat praktikum, sempat melakukan konfigurasi pada folder dan Web Server yang tidak sesuai, salah menempatkan pada folder **jarkom**, yang seharusnya **kaizoku**. Sehingga butuh untuk membuat ulang folder dan mengkonfigurasi script-script dari awal. 
+3. Gagal import file ekspor gns3 di device yang lain dan mengulang konfigurasi script dari awal. 
 
