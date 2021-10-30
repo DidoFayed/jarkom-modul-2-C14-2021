@@ -204,4 +204,5 @@ Screenshot:
 Kendala yang Dialami Selama Pengerjaan
 1. Beberapa teman yang menggunakan sistem operasi selain Linux mengalami kesulitan dalam mengerjakan, terdapat error ketika menjalankan GNS3, dan lain-lain.
 2. Ketika mengerjakan pada saat praktikum, sempat melakukan konfigurasi pada folder dan Web Server yang tidak sesuai, salah menempatkan pada folder **jarkom**, yang seharusnya **kaizoku**. Sehingga butuh untuk membuat ulang folder dan mengkonfigurasi script-script dari awal.
+3. Gagal import file ekspor gns3 di device yang lain dan mengulang konfigurasi script dari awal.
 
