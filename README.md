@@ -2,9 +2,9 @@
 Praktikum Jaringan Komputer Modul 2 - DNS dan Web Server
 
 ### Nama Anggota Kelompok:
-1. 05111940000059     Dido Fabian Fayed <br>
-2. 05111940000074	    Nur Ahmad Khatim <br>
-3. 05111940000162	    Ramadhan Arif Hardijansyah
+1. 05111940000059 	Dido Fabian Fayed <br>
+2. 05111940000074	Nur Ahmad Khatim <br>
+3. 05111940000162	Ramadhan Arif Hardijansyah
 
 ## Soal 1
 Ingin dibuat sebuah peta topology GNS3, dimana:
@@ -30,7 +30,7 @@ iface eth0 inet static
 	gateway 10.21.2.1
 ```
 
-## Soal 2
+## Soal 2. 
 Membuat website utama dengan mengakses franky.yyy.com dengan alias www.franky.yyy.com pada folder kaizoku.
 ### Cara Pengerjaan
 - Buka node Skypie dan update package list.
@@ -141,7 +141,7 @@ service bind9 restart
 
 ## Soal 3
 Buat subdomain super.franky.c14.com dengan alias www.super.franky.c14.com yang diatur DNS nya di EniesLobby dan mengarah ke Skypie
-### Cara Pengerjaan
+### Cara Pengerjaan 
 
 ## Soal 4
 Membuat reverse domain untuk domain utama.
@@ -183,7 +183,7 @@ $TTL    604800
 ```
 
 - Kemudian restart bind9 dengan command
-```
+```.  
 service bind9 restart
 ```
 
