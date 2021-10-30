@@ -30,6 +30,74 @@ iface eth0 inet static
 	gateway 10.21.2.1
 ```
 
+serta settingan untuk masing-masing node sebagai berikut.
+
+- Foosha
+  ```
+  auto eth0
+  iface eth0 inet dhcp
+
+  auto eth1
+  iface eth1 inet static
+      address 10.21.1.1
+      netmask 255.255.255.0
+
+  auto eth2
+  iface eth2 inet static
+      address 10.21.2.1
+      netmask 255.255.255.0
+  ```
+  
+- Loguetown
+  ```
+  auto eth0
+  iface eth0 inet static
+      address 10.21.1.2
+      netmask 255.255.255.0
+    gateway 10.21.1.1
+  ```
+  
+- Alabasta
+  ```
+  auto eth0
+  iface eth0 inet static
+	    address 10.21.1.3
+	    netmask 255.255.255.0
+	    gateway 10.21.1.1
+  ```
+  
+- EniesLobby
+  ```
+  auto eth0
+  iface eth0 inet static
+      address 10.21.2.2
+      netmask 255.255.255.0
+      gateway 10.21.2.1
+  ```
+  
+- Water7
+  ```
+  auto eth0
+  iface eth0 inet static
+      address 10.21.2.3
+      netmask 255.255.255.0
+      gateway 10.21.2.1
+  ```
+  
+Restart semua node dan menjalankan command berikut pada router `Foosha`.
+```
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.21.0.0/16
+```
+Dilanjutkan command berikut pada `Foosha` untuk melihat IP DNS:
+```
+cat /etc/resolv.conf
+```
+Muncul nameserver yang akan digunakan pada konfigurasi selanjutnya. Agar node-node selain `Foosha` dapat mengakses internet, dijalankan command berikut dan menggunakan IP DNS tadi.
+```
+echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+Testing semua node sudah terkoneksi dengan internet dengan `ping` ke google.com.
+
 ## Soal 2. 
 Membuat website utama dengan mengakses franky.yyy.com dengan alias www.franky.yyy.com pada folder kaizoku.
 ### Cara Pengerjaan
